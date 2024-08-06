@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Todo} from "./types/todo";
 
 const todos = [
   { id: 1, title: 'HTML + CSS', completed: true },
@@ -7,12 +8,6 @@ const todos = [
   { id: 3, title: 'React', completed: false },
   { id: 4, title: 'Vue.js', completed: false },
 ];
-
-interface Todo {
-  id: number;
-  title: string;
-  completed: boolean;
-}
 
 @Component({
   selector: 'app-root',
@@ -35,7 +30,7 @@ export class AppComponent {
   }
 
   todos = todos;
-  editing = false;
+
 
 
   get activeTodos() {
@@ -47,7 +42,7 @@ export class AppComponent {
       return
     }
 
-    const newTodo = {
+    const newTodo: Todo = {
       title: this.title.value,
       completed: false,
       id: Date.now()
