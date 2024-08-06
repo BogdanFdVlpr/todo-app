@@ -26,7 +26,9 @@
     <section class="todoapp__main" data-cy="TodoList">
       <app-todo
         *ngFor="let todo of todos; let i = index"
-        [todo]="todo">
+        [todo]="todo"
+        (delete)="todos.splice(i, 1)"
+      >
       </app-todo>
     </section>
 
@@ -61,7 +63,6 @@
       </nav>
 
       <button
-        data-cy="ClearCompletedButton"
         type="button"
         class="todoapp__clear-completed"
       >
