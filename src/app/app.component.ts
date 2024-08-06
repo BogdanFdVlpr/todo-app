@@ -31,8 +31,6 @@ export class AppComponent {
 
   todos = todos;
 
-
-
   get activeTodos() {
     return this.todos.filter(todo => !todo.completed)
   }
