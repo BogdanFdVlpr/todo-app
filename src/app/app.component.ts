@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Todo} from "./types/todo";
 
@@ -14,7 +14,7 @@ const todos = [
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
     todoForm = new FormGroup({
     title: new FormControl('', {
       nonNullable: true,
@@ -35,6 +35,19 @@ export class AppComponent {
     return this.todos.filter(todo => !todo.completed)
   }
 
+  constructor() {
+  }
+
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.todos[1] = { ...this.todos[1], title: 'qwerty'}
+    }, 3000)
+  }
+
+  trackById(i: number, todo: Todo) {
+    return todo.id;
+  }
+
   addTodo() {
     if (this.todoForm.invalid) {
       return
@@ -51,4 +64,6 @@ export class AppComponent {
 
     console.warn(this.todoForm)
   }
+
+
 }
