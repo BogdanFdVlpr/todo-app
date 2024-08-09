@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Todo} from "./types/todo";
 
@@ -12,9 +12,10 @@ const todos = [
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit{
+export class AppComponent {
     todoForm = new FormGroup({
     title: new FormControl('', {
       nonNullable: true,
@@ -26,6 +27,7 @@ export class AppComponent implements OnInit{
   });
 
   get title() {
+    console.log('calculatob')
     return this.todoForm.get('title') as FormControl;
   }
 
@@ -35,35 +37,50 @@ export class AppComponent implements OnInit{
     return this.todos.filter(todo => !todo.completed)
   }
 
-  constructor() {
-  }
-
-  ngOnInit(): void {
-    setTimeout(() => {
-      this.todos[1] = { ...this.todos[1], title: 'qwerty'}
-    }, 3000)
-  }
-
   trackById(i: number, todo: Todo) {
     return todo.id;
   }
 
-  addTodo() {
+  handleFormSubmit() {
     if (this.todoForm.invalid) {
       return
     }
 
+    this.addTodo(this.title.value)
+    this.todoForm.reset();
+  }
+
+  addTodo(newTitle: string) {
     const newTodo: Todo = {
-      title: this.title.value,
+      title: newTitle,
       completed: false,
       id: Date.now()
     }
 
-    this.todos.push(newTodo);
-    this.todoForm.reset();
-
-    console.warn(this.todoForm)
+    this.todos = [...todos, newTodo]
   }
 
+  toggleTodo(todoId: number) {
+    this.todos = this.todos.map(todo => {
+      if (todo.id !== todoId) {
+        return todo;
+      }
 
+      return  { ...todo, completed: !todo.completed };
+    })
+  }
+
+  renameTodo(todoId: number, title: string) {
+    this.todos = this.todos.map(todo => {
+      if (todo.id !== todoId) {
+        return todo;
+      }
+
+      return  { ...todo, title };
+    })
+  }
+
+  deleteTodo(todoId: number) {
+    this.todos = this.todos.filter(todo => todo.id !== todoId)
+  }
 }
