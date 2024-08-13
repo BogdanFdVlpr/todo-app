@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Todo} from "./types/todo";
 
-const todos = [
+const todosFromServer = [
   { id: 1, title: 'HTML + CSS', completed: true },
   { id: 2, title: 'JS', completed: false },
   { id: 3, title: 'React', completed: false },
@@ -15,39 +15,33 @@ const todos = [
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
-    todoForm = new FormGroup({
-    title: new FormControl('', {
-      nonNullable: true,
-      validators: [
-        Validators.required,
-        Validators.minLength(3)
-      ]
-    }),
-  });
+export class AppComponent implements OnInit {
 
-  get title() {
-    console.log('calculatob')
-    return this.todoForm.get('title') as FormControl;
+  _todos: Todo[] = [];
+  activeTodos: Todo[] = [];
+
+  get todos() {
+    return this._todos;
   }
 
-  todos = todos;
+  set todos(todos: Todo[]) {
+    if (todos === this._todos) {
+      return
+    }
 
-  get activeTodos() {
-    return this.todos.filter(todo => !todo.completed)
+    this._todos = todos;
+    this.activeTodos = this._todos.filter(todo => !todo.completed)
+  }
+
+  constructor() {
+  }
+
+  ngOnInit(): void {
+    this.todos = todosFromServer;
   }
 
   trackById(i: number, todo: Todo) {
     return todo.id;
-  }
-
-  handleFormSubmit() {
-    if (this.todoForm.invalid) {
-      return
-    }
-
-    this.addTodo(this.title.value)
-    this.todoForm.reset();
   }
 
   addTodo(newTitle: string) {
@@ -57,7 +51,7 @@ export class AppComponent {
       id: Date.now()
     }
 
-    this.todos = [...todos, newTodo]
+    this.todos = [...todosFromServer, newTodo]
   }
 
   toggleTodo(todoId: number) {

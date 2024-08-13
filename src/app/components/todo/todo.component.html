@@ -6,7 +6,6 @@
       class="todo__status"
       [checked]="todo.completed"
       (change)="toggle.emit()"
-
     />
   </label>
 
@@ -26,7 +25,7 @@
 
   <ng-template #titleBlock>
     <span data-cy="TodoTitle" class="todo__title" (dblclick)="edit()">
-      {{todo.title}}
+      {{todo.title | lowercase | slice:0:3}}
     </span>
     <button
       type="button"
