@@ -1,19 +1,15 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Todo} from "./types/todo";
-import {TodosService} from "./services/todos.service";
-
-
+import { Component, OnInit } from '@angular/core';
+import { TodosService } from './services/todos.service';
+import { Todo } from './types/todo';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
 
-  _todos: Todo[] = [];
+  private _todos: Todo[] = [];
   activeTodos: Todo[] = [];
 
   get todos() {
@@ -22,15 +18,15 @@ export class AppComponent implements OnInit {
 
   set todos(todos: Todo[]) {
     if (todos === this._todos) {
-      return
+      return;
     }
 
     this._todos = todos;
-    this.activeTodos = this._todos.filter(todo => !todo.completed)
+    this.activeTodos = this._todos.filter(todo => !todo.completed);
   }
 
   constructor(
-    private todosService: TodosService
+    private todosService: TodosService,
   ) {
   }
 
@@ -47,17 +43,17 @@ export class AppComponent implements OnInit {
 
   addTodo(newTitle: string) {
     this.todosService.createTodo(newTitle)
-      .subscribe()
+      .subscribe();
   }
 
   toggleTodo(todo: Todo) {
-    this.todosService.updateTodo({...todo, completed: !todo.completed})
+    this.todosService.updateTodo({ ...todo, completed: !todo.completed })
       .subscribe()
   }
 
   renameTodo(todo: Todo, title: string) {
-    this.todosService.updateTodo({...todo, title})
-      .subscribe()
+    this.todosService.updateTodo({ ...todo, title })
+      .subscribe();
   }
 
   deleteTodo(todo: Todo) {
