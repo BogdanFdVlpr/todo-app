@@ -1,38 +1,30 @@
 <div class="todoapp">
   <h1 class="todoapp__title">todos</h1>
 
-
-
-
   <div class="todoapp__content">
     <header class="todoapp__header">
-      <button
-        data-cy="ToggleAllButton"
-        type="button"
-        class="todoapp__toggle-all active"></button>
+      <button class="todoapp__toggle-all active"></button>
 
       <app-todo-form (save)="addTodo($event)"></app-todo-form>
     </header>
 
-    <section class="todoapp__main" data-cy="TodoList">
+    <section class="todoapp__main">
       <app-todo
         *ngFor="let todo of todos; let i = index; trackBy: trackById"
         [todo]="todo"
         (delete)="deleteTodo(todo)"
         (rename)="renameTodo(todo, $event)"
         (toggle)="toggleTodo(todo)"
-      >
-      </app-todo>
+      ></app-todo>
     </section>
 
-    <footer class="todoapp__footer" data-cy="Footer">
-          <span class="todo-count" data-cy="todosCounter">
-            {{activeTodos.length}} items left
-          </span>
+    <footer class="todoapp__footer">
+      <span class="todoapp__active-count">
+        {{ activeTodos.length }} items left
+      </span>
 
-      <nav class="filter" data-cy="Filter">
+      <nav class="filter">
         <a
-          data-cy="FilterLinkAll"
           href="#/"
           class="filter__link selected"
         >
@@ -40,14 +32,13 @@
         </a>
 
         <a
-          data-cy="FilterLinkActive"
           href="#/active"
           class="filter__link"
         >
           Active
         </a>
+
         <a
-          data-cy="FilterLinkCompleted"
           href="#/completed"
           class="filter__link"
         >
@@ -55,28 +46,20 @@
         </a>
       </nav>
 
-      <button
-        type="button"
-        class="todoapp__clear-completed"
-      >
+      <button class="todoapp__clear-completed">
         Clear completed
       </button>
     </footer>
   </div>
 
-  <div
-    data-cy="ErrorNotification"
-    class="notification is-danger is-light has-text-weight-normal"
-  >
-    <button
-      data-cy="HideErrorButton"
-      type="button"
-      class="delete"></button>
+  <article class="message is-danger message--hidden">
+    <div class="message-header">
+      <p>Error</p>
+      <button class="delete"></button>
+    </div>
 
-    Unable to add a todo
-    <br />
-    Unable to delete a todo
-    <br />
-    Unable to update a todo
-  </div>
+    <div class="message-body">
+      Unable to add a Todo
+    </div>
+  </article>
 </div>

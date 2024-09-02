@@ -4,7 +4,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 @Component({
   selector: 'app-todo-form',
   templateUrl: './todo-form.component.html',
-  styleUrl: './todo-form.component.scss'
+  styleUrls: ['./todo-form.component.scss'],
 })
 export class TodoFormComponent {
   @Output() save = new EventEmitter<string>();

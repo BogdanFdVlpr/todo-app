@@ -8,13 +8,15 @@ import { TodoComponent } from './components/todo/todo.component';
 import { TodoFormComponent } from './components/todo-form/todo-form.component';
 import { FilterActivePipe } from './filter-active.pipe';
 import { HttpClientModule } from "@angular/common/http";
+import { MessageComponent } from './components/message/message.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TodoComponent,
     TodoFormComponent,
-    FilterActivePipe
+    FilterActivePipe,
+    MessageComponent
   ],
     imports: [
         BrowserModule,

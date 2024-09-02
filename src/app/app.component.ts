@@ -8,7 +8,6 @@ import { Todo } from './types/todo';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-
   private _todos: Todo[] = [];
   activeTodos: Todo[] = [];
 
@@ -27,14 +26,15 @@ export class AppComponent implements OnInit {
 
   constructor(
     private todosService: TodosService,
-  ) {
-  }
+  ) { }
 
   ngOnInit(): void {
     this.todosService.todos$
       .subscribe((todos) => {
         this.todos = todos;
-      })
+      });
+
+    this.todosService.loadTodos().subscribe()
   }
 
   trackById(i: number, todo: Todo) {
