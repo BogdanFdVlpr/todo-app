@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { TodosService } from './services/todos.service';
-import { Todo } from './types/todo';
-import {MessageService} from "./services/message.service";
+import {Component, OnInit} from '@angular/core';
+import {Todo} from "../../types/todo";
+import {TodosService} from "../../services/todos.service";
+import {MessageService} from "../../services/message.service";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  selector: 'app-todos-page',
+  templateUrl: './todos-page.component.html',
+  styleUrls: ['./todos-page.component.scss']
 })
-export class AppComponent implements OnInit {
+export class TodosPageComponent implements OnInit {
   private _todos: Todo[] = [];
   activeTodos: Todo[] = [];
   errorMessage = '';
@@ -75,4 +75,5 @@ export class AppComponent implements OnInit {
         error: () => this.messageService.showMessage('Unable to delete todos'),
       });
   }
+
 }
