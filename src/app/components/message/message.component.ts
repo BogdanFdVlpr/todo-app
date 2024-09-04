@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {MessageService} from "../../services/message.service";
 
 @Component({
@@ -6,7 +6,7 @@ import {MessageService} from "../../services/message.service";
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.scss'],
 })
-export class MessageComponent implements  OnInit {
+export class MessageComponent implements  OnInit, OnDestroy {
   @Input() title = 'Error'
 
   message = ''
@@ -23,6 +23,9 @@ export class MessageComponent implements  OnInit {
         this.hidden = false
         this.message = text;
       })
+  }
+
+  ngOnDestroy(): void {
   }
 
 }
