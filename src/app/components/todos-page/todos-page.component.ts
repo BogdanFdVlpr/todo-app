@@ -47,7 +47,6 @@ export class TodosPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      console.log(params)
     })
     this.todosService.loadTodos()
       .subscribe({
