@@ -12,14 +12,15 @@ import { MessageComponent } from './components/message/message.component';
 import { TodosPageComponent } from './components/todos-page/todos-page.component';
 import {RouterModule, Routes} from "@angular/router";
 import {AboutPageComponent} from "./about/about-page/about-page.component";
+import { FilterComponent } from './components/filter/filter.component';
 
 const routes: Routes = [
-  { path: 'todos', component: TodosPageComponent },
+  { path: 'todos/:status', component: TodosPageComponent },
   {
     path: 'about',
     loadChildren: () => import('./about/about.module').then(m => m.AboutModule)
   },
-  { path: '**', redirectTo: '/todos', pathMatch: 'full' },
+  { path: '**', redirectTo: '/todos/all', pathMatch: 'full' },
 ];
 
 @NgModule({
@@ -29,7 +30,8 @@ const routes: Routes = [
     TodoFormComponent,
     FilterActivePipe,
     MessageComponent,
-    TodosPageComponent
+    TodosPageComponent,
+    FilterComponent
   ],
     imports: [
         BrowserModule,

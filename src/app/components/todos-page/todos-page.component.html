@@ -10,7 +10,7 @@
 
     <section class="todoapp__main">
       <app-todo
-        *ngFor="let todo of todos$ | async; let i = index; trackBy: trackById"
+        *ngFor="let todo of visibleTodos$ | async; let i = index; trackBy: trackById"
         [todo]="todo"
         (delete)="deleteTodo(todo)"
         (rename)="renameTodo(todo, $event)"
@@ -23,28 +23,7 @@
         {{ activeCounter$ | async }} items left
       </span>
 
-      <nav class="filter">
-        <a
-          href="#/"
-          class="filter__link selected"
-        >
-          All
-        </a>
-
-        <a
-          href="#/active"
-          class="filter__link"
-        >
-          Active
-        </a>
-
-        <a
-          href="#/completed"
-          class="filter__link"
-        >
-          Completed
-        </a>
-      </nav>
+      <app-filter></app-filter>
 
       <button class="todoapp__clear-completed">
         Clear completed
